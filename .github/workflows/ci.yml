@@ -135,8 +135,11 @@ jobs:
             raylib reactphysics3d rtaudio sdl2 sdl2_mixer \
             sfml vte4 vulkan-headers vulkan-icd-loader
 
+      - name: Fix git ownership
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
       - name: Build
-        run: go build -v -buildvcs=false -o oh ./cmd/oh
+        run: go build -v -o oh ./cmd/oh
 
       - name: Vet
         run: go vet ./...
