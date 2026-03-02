@@ -222,6 +222,33 @@ func doRec(runArgs []string) error {
 	c.Stdout = os.Stdout
 	c.Stderr = os.Stderr
 	_ = c.Run()
+	// For clang-style PGO: merge .profraw files into default.profdata
+	if profrawFiles, _ := filepath.Glob("*.profraw"); len(profrawFiles) > 0 {
+		profdata := files.WhichCached("llvm-profdata")
+		if profdata == "" {
+			// Try xcrun on macOS (Command Line Tools)
+			if out, err := exec.Command("xcrun", "-f", "llvm-profdata").Output(); err == nil {
+				profdata = strings.TrimSpace(string(out))
+			}
+		}
+		if profdata != "" {
+			args := append([]string{"merge", "-o", "default.profdata"}, profrawFiles...)
+			cmd := exec.Command(profdata, args...)
+			cmd.Stdout = os.Stdout
+			cmd.Stderr = os.Stderr
+			if err := cmd.Run(); err != nil {
+				fmt.Fprintf(os.Stderr, "warning: llvm-profdata merge failed: %v\n", err)
+			}
+		}
+	}
+	// Remove object files (but not profile data) so the next build recompiles with PGO
+	for _, pat := range []string{"*.o", "common/*.o", "include/*.o"} {
+		if matches, _ := filepath.Glob(pat); len(matches) > 0 {
+			for _, f := range matches {
+				os.Remove(f)
+			}
+		}
+	}
 	return orchideous.DoBuild(orchideous.BuildOptions{Opt: true, ProfileUse: true})
 }
 
