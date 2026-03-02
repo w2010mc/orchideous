@@ -398,6 +398,12 @@ In both cases, a GCC or Clang compiler must be available on PATH.
 * Meant for building **executables**, not libraries.
 * Generated `CMakeLists.txt` is specific to the system it was generated on.
 
+## Wiki
+
+For a list of projects that compiles with Orchideous, check out [the wiki](https://github.com/xyproto/orchideous/wiki/List-of-projects-that-compile-with-Orchideous).
+
+Please add additional projects to the list!
+
 ## General Info
 
 * License: BSD-3
