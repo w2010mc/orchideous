@@ -415,5 +415,5 @@ In both cases, a GCC or Clang compiler must be available on PATH.
 ## General Info
 
 * License: BSD-3
-* Version: 1.0.5
+* Version: 1.0.6
 * Author: Alexander F. Rødseth &lt;xyproto@archlinux.org&gt;
